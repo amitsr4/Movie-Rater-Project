@@ -16,18 +16,18 @@ function MovieDetails(props) {
     setHighlighted(high);
   };
 
-  const rateClicked = (rate) => (evt) => {
+  const rateClicked = (rate) => (evt) => { 
     //בזכות ה ` סימן הזה יכולנו להוסיף פרמטר ל fetch
     fetch(`http://127.0.0.1:8000/api/movies/${mov.id}/rate_movie/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 06eefa8b75b8bf6bfec66ba9f965c0939de992ea		",
+        Authorization: "Token 9f5e580e5fa1e43b5a7a48941a7652c7246e1148		",
       },
       body: JSON.stringify({ stars: rate + 1 }),
     })
       .then(() => getDetails())
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
   };
 
   const getDetails = () => {
@@ -35,7 +35,7 @@ function MovieDetails(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 06eefa8b75b8bf6bfec66ba9f965c0939de992ea		",
+        Authorization: "Token 9f5e580e5fa1e43b5a7a48941a7652c7246e1148		",
       },
     })
       .then((resp) => resp.json())
