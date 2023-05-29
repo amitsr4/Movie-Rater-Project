@@ -20,6 +20,33 @@
   grid-gap: 20px;
 }
 
+.login-container{
+  width: 50%;
+  margin: 0 25%;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  font-size: 0.8rem;
+}
+
+button{
+  color: #444;
+  background-color: #fefefe;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+button:disabled {
+  color: #fefefe;
+  background-color: #444;
+  cursor: not-allowed;
+}
 .orange{
   color: orange;
 }
@@ -45,4 +72,16 @@
 .movie-item svg{
 font-size: 1.2rem;
 margin: 16px 5px;
+}
+
+.fa-trash{
+  color: rgb(171, 42, 42);
+}
+
+h1{
+  color: orange;
+}
+h1 .fa-film{
+  color: white;
+  transform:rotate(30deg);
 }

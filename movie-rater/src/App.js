@@ -3,20 +3,22 @@ import "./App.css";
 import MovieList from "./components/movie-list";
 import MovieDetails from "./components/movie-details";
 import MovieForm from "./components/movie-form";
-import { useCookies} from 'react-cookie'
+import { useCookies } from "react-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilm } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovie] = useState(null);
-  const [ token ] = useCookies(['movie-token']);
+  const [token] = useCookies(["movie-token"]);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${token['movie-token']} 		`,
+        Authorization: `Token ${token["movie-token"]} 		`,
       },
     })
       .then((resp) => resp.json())
@@ -26,9 +28,8 @@ function App() {
 
   useEffect(() => {
     console.log(token);
-    if (!token['movie-token']) window.location.href = "/movies";
+    if (!token["movie-token"]) window.location.href = "/movies";
   }, [token]);
-
 
   const loadMovie = (movie) => {
     setSelectedMovie(movie);
@@ -68,7 +69,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Movie rater</h1>
+        <h1>
+          {" "}
+          <FontAwesomeIcon icon={faFilm} />
+        <span>Movie rater</span>
+        </h1>
       </header>
       <div className="layout">
         <div>
