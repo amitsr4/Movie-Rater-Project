@@ -1,17 +1,20 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import {API} from "../api-service";
+import { API } from "../api-service";
+import { useCookies } from "react-cookie";
 
 function MovieList(props) {
+  const [token] = useCookies(["movie-token"]);
+
   const movieClicked = (movie) => (evt) => {
-    props.movieClicked(movie);
+    props.movieClicked(movie, token["movie-token"]);
   };
   const editClicked = (movie) => {
-    props.editClicked(movie);
+    props.editClicked(movie, token["movie-token"]);
   };
   const removeClicked = (movie) => {
-    API.deleteMovie(movie.id)
+    API.deleteMovie(movie.id, token["movie-token"])
       .then(() => props.removeClicked)
       .catch((error) => console.log());
     props.removeClicked(movie);

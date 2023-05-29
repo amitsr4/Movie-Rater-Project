@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { API } from "../api-service";
 import { error } from "console";
 import { prop } from "ramda";
+import { useCookies } from "react-cookie";
 
 function MovieForm(props) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [token] = useCookies(["movie-token"]);
 
   useEffect(() => {
     setTitle(props.movie.title);
@@ -13,13 +15,13 @@ function MovieForm(props) {
   }, [props.movie]);
 
   const updateClicked = () => {
-    API.updateMovie(props.movie.id, { title, description })
+    API.updateMovie(props.movie.id, { title, description }, token['movie-token'])
       .then((resp) => props.updatedMovie(resp))
       .catch((error) => console.log(error));
   };
 
   const createClicked = () => {
-    API.createMovie({ title, description })
+    API.createMovie({ title, description },token['movie-token'])
       .then((resp) => props.MovieCreated(resp))
       .catch((error) => console.log(error));
   };

@@ -6,11 +6,14 @@ import {
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+import { useCookies} from 'react-cookie'
+
 
 function MovieDetails(props) {
   const mov = props.movie;
 
   const [highlighted, setHighlighted] = useState(-1);
+  const [ token, setToken ] = useCookies(['movie-token']);
 
   const highlightRate = (high) => (evt) => {
     setHighlighted(high);
@@ -22,7 +25,7 @@ function MovieDetails(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 9f5e580e5fa1e43b5a7a48941a7652c7246e1148		",
+        Authorization: `Token  ${token['movie-token']}`		,
       },
       body: JSON.stringify({ stars: rate + 1 }),
     })
@@ -35,7 +38,7 @@ function MovieDetails(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 9f5e580e5fa1e43b5a7a48941a7652c7246e1148		",
+        Authorization: `Token  ${token['movie-token']}`		,
       },
     })
       .then((resp) => resp.json())
