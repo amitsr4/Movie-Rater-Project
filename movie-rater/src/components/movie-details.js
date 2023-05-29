@@ -39,7 +39,7 @@ function MovieDetails(props) {
       },
     })
       .then((resp) => resp.json())
-      .then((resp) => props.updateMovie(resp))
+      .then((resp) => props.updateMovie(resp))  //IMPORTANT- notify the parent to change movie.
       .catch((error) => console.log(error));
   };
 
@@ -47,8 +47,8 @@ function MovieDetails(props) {
     <React.Fragment>
       {mov ? (
         <div>
-          <h1>{mov && mov.title}</h1>
-          <p>{mov && mov.description}</p>
+          <h1>{ mov.title}</h1>
+          <p>{mov.description}</p>
           <FontAwesomeIcon
             icon={solid("star")}
             className={mov.avg_rating > 0 ? "orange" : ""}

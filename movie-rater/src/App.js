@@ -3,6 +3,7 @@ import "./App.css";
 import MovieList from "./components/movie-list";
 import MovieDetails from "./components/movie-details";
 import MovieForm from "./components/movie-form";
+import { remove } from "ramda";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -42,20 +43,43 @@ function App() {
     setMovies(newMovie);
   };
 
+  const newMovie = () => {
+    setEditedMovie({ title: "", description: "" });
+    setSelectedMovie(null);
+  };
+
+  const MovieCreated = (movie) => {
+    const newMovies = [...movies, movie];
+    setMovies(newMovies);
+  };
+
+  const removeClicked = (movie) => {
+    const newMovies = movies.filter((mov) => mov.id !== movie.id);
+    setMovies(newMovies);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Movie rater</h1>
       </header>
       <div className="layout">
-        <MovieList
-          movies={movies}
-          movieClicked={loadMovie}
-          editClicked={editClicked}
-        />
+        <div>
+          <MovieList
+            movies={movies}
+            movieClicked={loadMovie}
+            editClicked={editClicked}
+            removeClicked={removeClicked}
+          />
+          <button onClick={newMovie}> New Movie</button>
+        </div>
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie} />
         {editedMovie ? (
-          <MovieForm movie={editedMovie} updatedMovie={updatedMovie} />
+          <MovieForm
+            movie={editedMovie}
+            updatedMovie={updatedMovie}
+            MovieCreated={MovieCreated}
+          />
         ) : null}
       </div>
     </div>

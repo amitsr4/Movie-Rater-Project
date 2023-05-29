@@ -1,11 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  solid,
-  regular,
-  brands,
-  icon,
-} from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {API} from "../api-service";
 
 function MovieList(props) {
   const movieClicked = (movie) => (evt) => {
@@ -14,7 +10,12 @@ function MovieList(props) {
   const editClicked = (movie) => {
     props.editClicked(movie);
   };
-
+  const removeClicked = (movie) => {
+    API.deleteMovie(movie.id)
+      .then(() => props.removeClicked)
+      .catch((error) => console.log());
+    props.removeClicked(movie);
+  };
   return (
     <div>
       {props.movies &&
@@ -23,10 +24,13 @@ function MovieList(props) {
             <div key={movie.id} className="movie-item">
               <h2 onClick={movieClicked(movie)}>{movie.title}</h2>
               <FontAwesomeIcon
-                icon={regular("Edit")}
+                icon={faEdit}
                 onClick={() => editClicked(movie)}
               />
-              <FontAwesomeIcon icon={solid("Trash")} />
+              <FontAwesomeIcon
+                icon={faTrash}
+                onClick={() => removeClicked(movie)}
+              />
             </div>
           );
         })}
