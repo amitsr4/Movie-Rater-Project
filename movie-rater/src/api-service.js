@@ -1,4 +1,3 @@
-
 export class API {
   static loginUser(body) {
     return fetch(`http://127.0.0.1:8000/auth/`, {
@@ -20,8 +19,7 @@ export class API {
     }).then((resp) => resp.json());
   }
 
-
-  static updateMovie(mov_id, body,token) {
+  static updateMovie(mov_id, body, token) {
     //a static method so i don't need to initiate class API
     return fetch(`http://127.0.0.1:8000/api/movies/${mov_id}/`, {
       method: "PUT",
@@ -33,7 +31,17 @@ export class API {
     }).then((resp) => resp.json());
   }
 
-  static createMovie(body,token) {
+  static getMovies(token) {
+    return fetch("http://127.0.0.1:8000/api/movies/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token} 		`,
+      },
+    }).then((resp) => resp.json());
+  }
+
+  static createMovie(body, token) {
     return fetch(`http://127.0.0.1:8000/api/movies/`, {
       method: "POST",
       headers: {
@@ -44,7 +52,7 @@ export class API {
     }).then((resp) => resp.json());
   }
 
-  static deleteMovie(mov_id,token) {
+  static deleteMovie(mov_id, token) {
     return fetch(`http://127.0.0.1:8000/api/movies/${mov_id}/`, {
       method: "DELETE",
       headers: {

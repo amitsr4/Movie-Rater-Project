@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from "react";
 import "./App.css";
+import React, { useState, useEffect } from "react";
 import MovieList from "./components/movie-list";
 import MovieDetails from "./components/movie-details";
 import MovieForm from "./components/movie-form";
 import { useCookies } from "react-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilm } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { useFetch } from "./hooks/useFetch";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovie] = useState(null);
-  const [token] = useCookies(["movie-token"]);
+  const [token, setToken, deleteToken] = useCookies(["movie-token"]);
+  const [data, loading, error] = useFetch(); // my custom hook
+
+  useEffect(() => {
+    setMovies(data);
+  }, [data]);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/movies/", {
@@ -27,8 +34,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(token);
-    if (!token["movie-token"]) window.location.href = "/movies";
+    if (!token["movie-token"]) window.location.href = "/";
   }, [token]);
 
   const loadMovie = (movie) => {
@@ -66,14 +72,21 @@ function App() {
     setMovies(newMovies);
   };
 
+  const logoutUser = () => {
+    deleteToken(["movie-token"]);
+  };
+
+  if(loading) return <h1>Loading...</h1>
+  if(error) return <h1>Error loading movies...</h1>
   return (
     <div className="App">
       <header className="App-header">
         <h1>
           {" "}
           <FontAwesomeIcon icon={faFilm} />
-        <span>Movie rater</span>
+          <span>Movie rater</span>
         </h1>
+        <FontAwesomeIcon icon={faSignOutAlt} onClick={logoutUser} />
       </header>
       <div className="layout">
         <div>

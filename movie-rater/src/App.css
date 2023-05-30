@@ -85,3 +85,11 @@ h1 .fa-film{
   color: white;
   transform:rotate(30deg);
 }
+
+.fa-right-from-bracket {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
