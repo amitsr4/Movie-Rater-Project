@@ -14,10 +14,12 @@ function MovieList(props) {
     props.editClicked(movie, token["movie-token"]);
   };
   const removeClicked = (movie) => {
-    API.deleteMovie(movie.id, token["movie-token"])
-      .then(() => props.removeClicked)
-      .catch((error) => console.log());
-    props.removeClicked(movie);
+    if (window.confirm("Are you sure you want to delete it?")) {
+      API.deleteMovie(movie.id, token["movie-token"])
+        .then(() => props.removeClicked)
+        .catch((error) => console.log());
+      props.removeClicked(movie);
+    }
   };
   return (
     <div>

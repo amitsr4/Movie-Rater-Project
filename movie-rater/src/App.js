@@ -73,7 +73,10 @@ function App() {
   };
 
   const logoutUser = () => {
+    if (window.confirm("Logout?")) {
+
     deleteToken(["movie-token"]);
+    }
   };
 
   if(loading) return <h1>Loading...</h1>
@@ -96,7 +99,8 @@ function App() {
             editClicked={editClicked}
             removeClicked={removeClicked}
           />
-          <button onClick={newMovie}> New Movie</button>
+          <br></br>
+          <button onClick={newMovie} style={{marginLeft: '10%'}}> New Movie</button>
         </div>
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie} />
         {editedMovie ? (

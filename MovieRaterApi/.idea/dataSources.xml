@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="db" uuid="2179bb88-2bf3-433b-bc68-9942c8596652">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\97252\Desktop\Computer Sience\projects\Movie Rater\Movie-Rater-Project\MovieRaterApi\db.sqlite3</jdbc-url>
+    </data-source>
+  </component>
+</project>

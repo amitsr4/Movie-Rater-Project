@@ -6,7 +6,18 @@ export class API {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then((resp) => resp.json());
+    })
+    .then((resp) => {
+      if (!resp.ok) {
+        // Don't throw an error, but return the whole response
+        return resp;
+      }
+      return resp.json();
+    })
+    .catch((error) => {
+      // This will handle network errors
+      return { error: 'Network error: ' + error.message };
+    });
   }
 
   static registerUser(body) {

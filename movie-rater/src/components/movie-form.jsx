@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API } from "../api-service";
-import { error } from "console";
-import { prop } from "ramda";
+
 import { useCookies } from "react-cookie";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 function MovieForm(props) {
   const [title, setTitle] = useState("");
@@ -21,7 +19,9 @@ function MovieForm(props) {
       { title, description },
       token["movie-token"]
     )
-      .then((resp) => props.updatedMovie(resp))
+      .then((resp) => {
+        props.updatedMovie(resp);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -32,7 +32,7 @@ function MovieForm(props) {
   };
 
   const isDisabled = title.length === 0 || description.length === 0;
-  
+
   return (
     <React.Fragment>
       {props.movie ? (
